@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Punto de Venta de Café y Repostería</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Punto de Venta de Café y Repostería</h1>
+  </header>
+  <main>
+    <section class="cafe">
+      <h2>Cafés</h2>
+      <ul>
+        <li>
+          <input type="checkbox" id="cafe1" name="cafe1">
+          <label for="cafe1">Café Espresso ($2.50)</label>
+        </li>
+        <li>
+          <input type="checkbox" id="cafe2" name="cafe2">
+          <label for="cafe2">Café con Leche ($3.00)</label>
+        </li>
+        <li>
+          <input type="checkbox" id="cafe3" name="cafe3">
+          <label for="cafe3">Café Americano ($2.00)</label>
+        </li>
+        <li>
+          <input type="checkbox" id="cafe4" name="cafe4">
+          <label for="cafe4">Café con Chocolate ($3.50)</label>
+        </li>
+        <li>
+          <input type="checkbox" id="cafe5" name="cafe5">
+          <label for="cafe5">Café Frappé ($4.00)</label>
+        </li>
+        <li>
+          <input type="checkbox" id="cafe6" name="cafe6">
+          <label for="cafe6">Café Mocha ($3.50)</label>
+        </li>
+      </ul>
+    </section>
+    <section class="tortas">
+      <h2>Tortas</h2>
+      <ul>
+        <li>
+          <input type="checkbox" id="torta1" name="torta1">
+          <label for="torta1">Torta de Chocolate ($4.50)</label>
+        </li>
+        <li>
+          <input type="checkbox" id="torta2" name="torta2">
+          <label for="torta2">Torta de Fresa ($4.00)</label>
+        </li>
+        <li>
+          <input type="checkbox" id="torta3" name="torta3">
+          <label for="torta3">Torta de Vainilla ($3.50)</label>
+        </li>
+      </ul>
+    </section>
+    <section class="hotcakes">
+      <h2>Hot Cakes</h2>
+      <ul>
+        <li>
+          <input type="checkbox" id="hotcake1" name="hotcake1">
+          <label for="hotcake1">Hot Cake de Chocolate ($3.00)</label>
+        </li>
+        <li>
+          <input type="checkbox" id="hotcake2" name="hotcake2">
+          <label for="hotcake2">Hot Cake de Fresa ($3.50)</label>
+        </li>
+        <li>
+          <input type="checkbox" id="hotcake3" name="hotcake3">
+          <label for="hotcake3">Hot Cake de Vainilla ($3.00)</label>
+        </li>
+        <li>
+          <input type="checkbox" id="hotcake4" name="hotcake4">
+          <label for="hotcake4">Hot Cake de Nuez ($4.00)</label>
+        </li>
+        <li>
+          <input type="checkbox" id="hotcake5" name="hotcake5">
+          <label for="hotcake5">Hot Cake de Caramelo ($4.50)</label>
+        </li>
+      </ul>
+    </section>
+    <button id="boton-pagar">Pagar</button>
+  </main>
+  <script>
+   const botonPagar = document.getElementById('boton-pagar');
+botonPagar.addEventListener('click', () => {
+  const cafe = document.querySelectorAll('input[name^="cafe"]:checked');
+  const tortas = document.querySelectorAll('input[name^="torta"]:checked');
+  const hotcakes = document.querySelectorAll('input[name^="hotcake"]:checked');
+  const total = [];
+  cafe.forEach((cafe) => {
+    total.push(cafe.labels[0].textContent);
+  });
+  tortas.forEach((torta) => {
+    total.push(torta.labels[0].textContent); // Corregí este línea
+  });
+  hotcakes.forEach((hotcake) => {
+    total.push(hotcake.labels[0].textContent);
+  });
+  // Ahora puedes calcular el total sumando los precios
+  const precios = total.map((item) => {
+    const precio = item.match(/\d+\.\d+/)[0];
+    return parseFloat(precio);
+  });
+  const totalCompra = precios.reduce((a, b) => a + b, 0);
+  console.log(`El total de la compra es: $${totalCompra.toFixed(2)}`);
+});
